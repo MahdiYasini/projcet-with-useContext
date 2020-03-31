@@ -1,11 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
-import { Route, Switch, Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import Age from '../Age/Age';
-import Info from '../Info/Info';
-
-import bgImage from '../../assets/images/1.jpg';
+import bgImage from '../../assets/images/2.jpg';
 
 const useStyles = makeStyles({
     root: {
@@ -43,7 +40,6 @@ const useStyles = makeStyles({
         padding: "1.3rem",
         borderRadius: "5px",
         border: "none",
-        background: "#ccc",
         "&:hover": {
             cursor: "pointer",
             background: "lightBlue",
@@ -52,7 +48,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Home = (props) => {
+const Age = () => {
     const classes = useStyles();
 
     let value = ''
@@ -61,31 +57,23 @@ const Home = (props) => {
     }
 
     const buttonClickHandler = () => {
-        console.log('object')
+        console.log('value', value)
     }
     return (
         <>
-            <Switch>
-                <Route exact path="/">
-                    <div className={classes.root}>
-                        <div className={classes.showCase}>
-                            <div className={classes.showCaseContent}>
-                                <label htmlFor="input">Please Enter Your Name</label>
-                                <input id="input" onChange={(event) => inputChangeHandler(event)} placeholder="Enter Your Name" />
-                                <Link to="/age">
-                                    <button className={classes.btn} onClick={buttonClickHandler}>
-                                        Next Step...
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
+            <div className={classes.root}>
+                <div className={classes.showCase}>
+                    <div className={classes.showCaseContent}>
+                        <label htmlFor="input">Please Enter Your Age</label>
+                        <input type = "number" min="1" id="input" onChange={(event) => inputChangeHandler(event)} placeholder="Enter Your Age" />
+                        <Link to="/info">
+                        <button onClick={buttonClickHandler} className={classes.btn}>Next level...</button>
+                        </Link>
                     </div>
-                </Route>
-                <Route path="/age" exact component={Age} />
-                <Route path="/info" exact component={Info} />
-            </Switch>
+                </div>
+            </div>
         </>
     );
 };
 
-export default Home;
+export default Age;
