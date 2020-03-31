@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 
 import bgImage from '../../assets/images/2.jpg';
+import { UserContext } from '../../UserContext';
 
 const useStyles = makeStyles({
     root: {
@@ -50,14 +51,16 @@ const useStyles = makeStyles({
 
 const Age = () => {
     const classes = useStyles();
+    const { userInfo, setUserInfo } = useContext(UserContext);
 
-    let value = ''
+    let value = 0;
     const inputChangeHandler = (event) => {
         value = event.target.value;
     }
 
     const buttonClickHandler = () => {
-        console.log('value', value)
+        const newUserInfo = { ...userInfo, age: value };
+        setUserInfo(newUserInfo);
     }
     return (
         <>
@@ -65,9 +68,9 @@ const Age = () => {
                 <div className={classes.showCase}>
                     <div className={classes.showCaseContent}>
                         <label htmlFor="input">Please Enter Your Age</label>
-                        <input type = "number" min="1" id="input" onChange={(event) => inputChangeHandler(event)} placeholder="Enter Your Age" />
+                        <input type="number" min="1" id="input" onChange={(event) => inputChangeHandler(event)} placeholder="Enter Your Age" />
                         <Link to="/info">
-                        <button onClick={buttonClickHandler} className={classes.btn}>Next level...</button>
+                            <button onClick={buttonClickHandler} className={classes.btn}>Next level...</button>
                         </Link>
                     </div>
                 </div>
