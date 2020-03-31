@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core'
-import { Route, Switch, Redirect, Link } from 'react-router-dom'
+import { Route, Switch, Link } from 'react-router-dom'
 
 import Age from '../Age/Age';
 import Info from '../Info/Info';
 
 import bgImage from '../../assets/images/1.jpg';
+
+import { UserContext } from '../../UserContext';
 
 const useStyles = makeStyles({
     root: {
@@ -52,17 +54,20 @@ const useStyles = makeStyles({
     }
 });
 
-const Home = (props) => {
+const Home = () => {
+    const [userInfo, setUserInfo] = useState({ name: '', age: 0 });
     const classes = useStyles();
 
-    let value = ''
+    let value = '';
     const inputChangeHandler = (event) => {
         value = event.target.value;
-    }
+    };
 
     const buttonClickHandler = () => {
-        console.log('object')
-    }
+        const newUserInfo = { ...userInfo, name: value };
+        setUserInfo(newUserInfo);
+    };
+
     return (
         <>
             <Switch>
@@ -81,8 +86,10 @@ const Home = (props) => {
                         </div>
                     </div>
                 </Route>
-                <Route path="/age" exact component={Age} />
-                <Route path="/info" exact component={Info} />
+                <UserContext.Provider value={{ userInfo, setUserInfo }}>
+                    <Route path="/age" exact component={Age} />
+                    <Route path="/info" exact component={Info} />
+                </UserContext.Provider>
             </Switch>
         </>
     );
