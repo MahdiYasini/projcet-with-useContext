@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { UserContext } from "../../UserContext";
 
 import bgImage from '../../assets/images/3.jpg';
 
@@ -41,22 +41,14 @@ const useStyles = makeStyles({
 
 const Age = () => {
     const classes = useStyles();
-
-    let value = ''
-    const inputChangeHandler = (event) => {
-        value = event.target.value;
-    }
-
-    const buttonClickHandler = () => {
-        console.log('value', value)
-    }
+    const { userInfo } = useContext(UserContext);
     return (
         <>
             <div className={classes.root}>
                 <div className={classes.showCase}>
                     <div className={classes.showCaseContent}>
-                        <h3 htmlFor="input">Hello user</h3>
-                        <h3 htmlFor="input">You are ,,,, years old</h3>
+                        <h3 htmlFor="input">Hello {userInfo.name}</h3>
+                        <h3 htmlFor="input">You are {userInfo.age} years old</h3>
                     </div>
                 </div>
             </div>
